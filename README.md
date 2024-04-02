@@ -8,7 +8,7 @@ ____
 ```commandline
 source .venv/bin/activate
 ```
-- **Activate virtual environment for Unix/MacOS:**
+- **Activate virtual environment for Windows:**
 ```commandline
 .venv\Scripts\activate
 ```
