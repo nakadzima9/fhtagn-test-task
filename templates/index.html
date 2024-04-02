@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<label for="pnumber">Integer in the range from 1 to 1000000</label><br>
+<input type="number" id="pnumber" onkeypress="return isNumberKey(event)"><br>
+<label for="outputT">output</label><br>
+<input type="text" id="outputT" readonly><br>
+<button type="button" id='button1'>Check is Prime</button>
+
+<script type="text/javascript">
+    function isNumberKey(evt) {
+      var charCode = (evt.which) ? evt.which : evt.keyCode
+      if (charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+      return true;
+    }
+
+    function isPrime(number) {
+        if (number === 2 || number === 3) {
+            return true;
+        }
+        return !(number % 2 === 0 || number % 3 === 0 || number === 1);
+    }
+
+    function inRange(number) {
+        return number >= 1 && number <= 1000000;
+    }
+
+    function Task(number) {
+        if (isPrime(number)) {
+            return "is prime";
+        } else if (!inRange(number)) {
+            return "number range error";
+        }
+
+        let direction = 1;
+        let currentNumber = number + direction;
+        const primeNumbers = [];
+
+        while (primeNumbers.length < 2) {
+            if (!inRange(currentNumber)) {
+                direction = -direction;
+                currentNumber = number + direction;
+            }
+
+            if (!primeNumbers.includes(currentNumber) && isPrime(currentNumber)) {
+                primeNumbers.push(currentNumber);
+                direction = -direction;
+                currentNumber = number + direction;
+            } else {
+                currentNumber += direction;
+            }
+        }
+
+        return `${primeNumbers[0]} ${primeNumbers[1]}`;
+    }
+
+    function PrimeStatus() {
+        var InputText = document.getElementById("pnumber");
+        var OutputText = document.getElementById("outputT");
+        OutputText.value = Task(Number(InputText.value));
+
+    }
+
+    var button = document.getElementById("button1")
+    button.addEventListener("click", PrimeStatus);
+
+</script>
+</body>
+</html>
